@@ -1,4 +1,4 @@
-# PyCrypt - Password Encryption Tool
+# PyCrypt - Password Encryption/Decryption Tool
 
 A simple GUI-based password encryption and decryption tool built with Python and HTML/JavaScript.
 
