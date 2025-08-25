@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PyCrypt</title>
+    <style>
+      body {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgb(146, 239, 255),
+          rgb(112, 112, 112)
+        );
+        height: 175px;
+      }
+      #main-menu,
+      #encrypt,
+      #decrypt {
+        margin-top: 10px;
+        display: inline-block;
+        width: 370px;
+      }
+      #main-menu button {
+        background-color: transparent;
+        border: none;
+
+        margin-bottom: 7px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        width: 220px;
+        height: 30px;
+      }
+      #encrypt,
+      #decrypt {
+        display: none;
+      }
+      #encrypt button,
+      #decrypt button {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 7px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        width: 220px;
+        height: 30px;
+      }
+      #encrypt textarea,
+      #decrypt textarea {
+        overflow: hidden;
+        background-color: transparent;
+        color: black;
+        margin: -5px 0 10px 0;
+        display: inline-block;
+        padding: 5px 10px;
+        width: 250px;
+        height: 40px;
+        border-radius: 10px;
+        resize: none;
+      }
+      #encrypt textarea:focus,
+      #decrypt textarea:focus {
+        outline: none;
+      }
+      p {
+        display: none;
+        text-transform: uppercase;
+        padding: 0%;
+        margin: 4px 0 0 0;
+      }
+      span {
+        font-weight: 600;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- main menu -->
+    <section id="main-menu">
+      <h3>PyCrypt By <span>Lovelak</span></h3>
+      <button id="encrypt-menu" onclick="encrypt_func()">encrypt</button>
+      <button id="decrypt-menu" onclick="decrypt_func()">decrypt</button>
+    </section>
+    <!-- encrypt section -->
+    <section id="encrypt">
+      <textarea
+        name="encryption"
+        id="encryptKey"
+        aria-expanded="false"
+        placeholder="Enter your password to Encrypt..."
+      ></textarea>
+      <button onclick="encrypt_key()">encrypt</button>
+      <button id="btm" onclick="BTM()">Back to menu</button>
+    </section>
+    <!-- decrypt section -->
+    <section id="decrypt">
+      <textarea
+        name="decryption"
+        id="decryptKey"
+        aria-expanded="false"
+        placeholder="Enter the file name to Decrypt..."
+      ></textarea>
+      <button onclick="decrypt_key()">decrypt</button>
+      <button id="btm" onclick="BTM()">Back to menu</button>
+    </section>
+    <p id="alert"></p>
+  </body>
+
+  <script>
+    const menu = document.getElementById("main-menu");
+    const Encrypt = document.getElementById("encrypt");
+    const Decrypt = document.getElementById("decrypt");
+    const Encrypt_key = document.getElementById("encryptKey");
+    const Decrypt_key = document.getElementById("decryptKey");
+    const Alert = document.getElementById("alert");
+
+    function encrypt_func() {
+      menu.style.display = "none";
+      Encrypt.style.display = "inline-block";
+    }
+    function decrypt_func() {
+      window.pywebview.api.warning();
+      menu.style.display = "none";
+      Decrypt.style.display = "inline-block";
+    }
+
+    function encrypt_key() {
+      if (Encrypt_key.value === "") {
+        Alert.style.display = "block";
+        Alert.innerHTML = "you must enter a KEY to <span>Encrypt</span> !";
+        setTimeout(() => {
+          Alert.style.display = "none";
+        }, 2000);
+      } else {
+        Alert.style.display = "block";
+        Alert.innerHTML = "Encryption Done!";
+        window.pywebview.api.encrypt(Encrypt_key.value);
+        setTimeout(() => {
+          Alert.style.display = "none";
+        }, 2000);
+      }
+    }
+
+    function decrypt_key() {
+      if (Decrypt_key.value === "") {
+        Alert.style.display = "block";
+        Alert.innerHTML = "you must enter a KEY to <span>Decrypt</span> !";
+        setTimeout(() => {
+          Alert.style.display = "none";
+        }, 2000);
+      } else {
+        Alert.style.display = "block";
+        Alert.innerHTML = "Decrypting !";
+        window.pywebview.api.decrypt(Decrypt_key.value);
+        setTimeout(() => {
+          Alert.style.display = "none";
+        }, 2000);
+      }
+    }
+
+    function BTM() {
+      menu.style.display = "inline-block";
+      Encrypt.style.display = "none";
+      Decrypt.style.display = "none";
+    }
+  </script>
+</html>
